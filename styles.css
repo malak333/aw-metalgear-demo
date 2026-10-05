@@ -1,0 +1,177 @@
+/* Metal Gear Solid Fan Overview — styles.css */
+
+:root {
+    --bg:        #0a1a0a;
+    --panel:     #0f250f;
+    --text:      #00e600;
+    --muted:     #00a300;
+    --accent:    #33ff33;
+    --border:    #1a4a1a;
+    --focus:     #66ff66;
+    --mono:      "Courier New", Courier, monospace;
+    --sans:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --max-w:     780px;
+    --pad:       1rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    line-height: 1.65;
+    padding: var(--pad);
+    min-height: 100vh;
+}
+
+/* ---------- Header / Nav ---------- */
+
+header {
+    text-align: center;
+    padding: 2rem var(--pad);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 1.6rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-family: var(--mono);
+}
+
+nav a:hover { background: var(--panel); color: var(--accent); }
+nav a:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
+/* ---------- Main ---------- */
+
+main { max-width: var(--max-w); margin: 0 auto; }
+
+section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--border);
+}
+
+section:last-of-type { border-bottom: none; }
+
+h2 {
+    font-size: 1.2rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 1rem;
+}
+
+h3 {
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+}
+
+p { margin-bottom: 0.5rem; }
+
+/* ---------- Character Grid ---------- */
+
+.character-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.character-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 1rem;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+    text-align: center;
+    padding: 2rem var(--pad);
+    color: var(--muted);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}
+
+/* ---------- Radar decoration ---------- */
+
+.radar {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    position: relative;
+    margin: 2rem auto;
+    background:
+        radial-gradient(circle, transparent 55%, var(--border) 55%, var(--border) 56%, transparent 56%),
+        radial-gradient(circle, transparent 30%, var(--border) 30%, var(--border) 31%, transparent 31%);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+.radar::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform-origin: left center;
+    animation: radar-sweep 3s linear infinite;
+}
+
+@keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ---------- Global focus ---------- */
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 600px) {
+    body { padding: 2rem; }
+    header h1 { font-size: 2rem; letter-spacing: 0.25em; }
+    .character-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .radar::after { animation: none; }
+}
